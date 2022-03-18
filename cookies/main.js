@@ -5,6 +5,19 @@
 import { Cookies } from 'cookies';
 
 /**
+ * Escape HTML entities in a string to avoid XSS attacks from user-generated content.
+ * @param {string} str
+ */
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
  * The onClientRequest event handler.
  * This event happens for every request as the request is received, before checking if a response is available in cache. Use this event for request modifications before going to cache or to origin. Here's an example of a function that modifies the response based on user location.
  * @see https://techdocs.akamai.com/edgeworkers/docs/event-handler-functions
@@ -24,7 +37,7 @@ export function onClientRequest(request) {
    * @see https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies
    */
   const content = name
-    ? `<h1>Welcome back, ${name} 👋</h1>
+    ? `<h1>Welcome back, ${escapeHtml(name)} 👋</h1>
       <p>(☝ we got that info from the browser cookies)</p>
       <p>Cookies are awesome because they can be accessed from the browser AND on the server.</p>
       <p>This allows you to create more personalized experiences for return users without relying on client-side code.</p>

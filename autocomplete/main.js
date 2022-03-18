@@ -14,6 +14,19 @@ import { QuickScore } from './quick-score.js';
 import list from './list.js';
 
 /**
+ * Escape HTML entities in a string to avoid XSS attacks from user-generated content.
+ * @param {string} str
+ */
+function escapeHtml(str) {
+  return str
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+/**
  * The onClientRequest event handler.
  * This event happens for every request as the request is received, before checking if a response is available in cache. Use this event for request modifications before going to cache or to origin. Here's an example of a function that modifies the response based on user location.
  *
@@ -73,11 +86,11 @@ export async function onClientRequest(request) {
          <form>
            <label for="q">
              Search Gen 1 Pokemon:
-             <input id="q" name="q" value="${query}" />
+             <input id="q" name="q" value="${escapeHtml(query)}" />
            </label>
            <button type="submit">Search</button>
          </form>
- 
+
          ${query.length === 0
       ? ''
       : results.length === 0
