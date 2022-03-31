@@ -68,9 +68,9 @@ export async function onClientRequest(request) {
          <meta name="viewport" content="width=device-width,initial-scale=1" />
          <title>Autosuggest</title>
          <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'><text y='.9em' font-size='9'>🔍</text></svg>" />
-         <link rel="stylesheet" type="text/css" href="https://unpkg.com/bedrocss">
          <style>
-           body { max-width: 60rem; margin: auto; padding: 2rem; font-family: Roboto, Helvetica, Arial, sans-serif; }
+           body { max-width: 60rem; margin: auto; padding: 2rem; font-family: Roboto, system-ui; }
+           button, input { font: inherit; }
            a { color: #017ac6; }
          </style>
        </head>
