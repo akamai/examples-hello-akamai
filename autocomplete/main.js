@@ -28,7 +28,7 @@ function escapeHtml(str) {
 
 /**
  * The onClientRequest event handler.
- * This event happens for every request as the request is received, before checking if a response is available in cache. Use this event for request modifications before going to cache or to origin. Here's an example of a function that modifies the response based on user location.
+ * This event happens for every request as the request is received, before checking if a response is available in cache. Use this event for request modifications before going to cache or to origin.
  *
  * @see https://techdocs.akamai.com/edgeworkers/docs/event-handler-functions
  * @param {EW.IngressClientRequest} request The request object @see https://techdocs.akamai.com/edgeworkers/docs/request-object
