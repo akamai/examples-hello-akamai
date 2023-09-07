@@ -54,27 +54,23 @@ If you find yourself hitting some issues with EdgeWorkers and need to debug what
 
 You should refer to the official documentation, but the short version looks like this:
 
-Generate EdgeWorker secret:
-
-`akamai edgeworkers secret`
-
-In your Property Manager, add a new variable:
-
-`PMUSER_EW_DEBUG_KEY <SECRET>`
-(Set security settings to Sensitive)
-
-Get auth token (expiring in 60 minutes):
+Generate authentication token with [Akamai CLI](https://techdocs.akamai.com/edgekv/docs/akamai-cli) (expiring in 60 minutes):
 
 `akamai edgeworkers auth --expiry 60 <EW_URL>`
 
-Add some Headers to your request ([Postman](https://www.postman.com/) or [ModHeaders](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en) work well).
-
-Don't forget to replace the `Akamai-EW-Trace` header with your auth token.
+Add the `Akamai-EW-Trace` request header containing the generated auth token.
 
 ```
-Pragma: akamai-x-get-request-id, akamai-x-get-cache-key, akamai-x-cache-on, akamai-x-cache-remote-on, akamai-x-get-extracted-values, akamai-x-get-true-cache-key, akamai-x-check-cacheable, akamai-x-get-nonces, akamai-x-get-ssl-client-session-i, akamai-x-serial-no, akamai-x-ew-debug
 Akamai-EW-Trace: <AUTH_TOKEN>
 ```
+
+Add the `Pragma` request header containing the value `akamai-x-ew-debug`.
+
+```
+Pragma: akamai-x-ew-debug
+```
+
+[Postman](https://www.postman.com/) or [ModHeaders](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en) are good options for modifying HTTP request headers.
 
 ## Documentation
 - [Akamai EdgeWorkers](https://developer.akamai.com/akamai-edgeworkers-overview)
